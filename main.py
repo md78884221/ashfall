@@ -1,3 +1,5 @@
+import os
+import json
 def start_game():
     name = input("Enter your character's name: ")
     print(f"Welcome, {name}! Your adventure begins now.")
@@ -38,10 +40,39 @@ def start_game():
             break
         else:
             print("Invalid choice. Please enter 1, 2, or 3.")
-
+    try:
+        os.makedirs("save", exist_ok=True)
+        with open("save/savegame.json", "w") as file:
+            json.dump({"name": name, "stats": player_stats}, file)
+    except Exception as e:
+        print(f"Error saving game: {e}")
     print(f"Character created: {name}, Class: {player_stats['class']}")
+    return name, player_stats
+
 def load_game():
-    print("Loading a saved game...")
+    name = input("Enter your character's name:")  
+    try:
+        with open("save/savegame.json", "r") as file:
+            saved_game = json.load(file)
+            if saved_game["name"] == name:
+                print(f"Welcome back, {name}! Your adventure continues.")
+                print(f""""
+    Current Stats:
+    ----------------------------------------
+    Class: {saved_game['stats']['class']}
+    Health: {saved_game['stats']['health']}
+    Strength: {saved_game['stats']['strength']}
+    Magic: {saved_game['stats']['magic']}
+    Speed: {saved_game['stats']['speed']}
+
+    """)
+                return [saved_game["name"], saved_game["stats"]]
+            else: 
+                print("No saved game found for that name. Please try again.")
+                return None
+    except FileNotFoundError:
+        print("No saved game found. Please start a new game.")
+        return None
 print("""
 ==========================
  Welcome to ashfall
@@ -49,9 +80,13 @@ print("""
 
 """)
 
+def game_loop():
+    # this is where we will implement the main game loop where the player will fight enemies, explore the world, and gather loot and allies, I'll figure out how to use my game_loop.
+    pass
 print("Welcome to ashfall, a text-based adventure game. In this game, you will explore a mysterious world filled with danger and excitement.")
 
-while True:
+loop = True
+while loop:
     print("""
     1. Start a new game
     2. Load a saved game
@@ -59,13 +94,21 @@ while True:
     """)
     choice = input("Enter your choice (1,2, or 3) --->").strip()
     if choice == "1":
-        start_game()
-        break
+        name, player_stats = start_game()
+        loop = False
     elif choice == "2":
-        load_game()
-        break
+        result = load_game()
+        loop = False
+        if result is None:
+            print("No saved game found. Please start a new game.")
+            loop = True
+        else:
+            name, player_stats = result
+            game_loop()
+            print("game loaded")
+            loop = False
     elif choice == "3":
         print("Thank you for playing ashfall. Goodbye!")
-        break
+        loop = False
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
