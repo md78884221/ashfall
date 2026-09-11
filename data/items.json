@@ -1,0 +1,51 @@
+{
+    "rusty_dagger" : {
+        "name" : "Rusty Dagger",
+        "type" : "weapon",
+        "description" : "An old dagger that has seen better days.",
+        "value" : 5,
+        "stats" : {
+            "damage" : 8,
+            "speed" : 15
+        },
+        "requirements" : {
+            "level" : 1
+        }
+    },
+    "placeholder_weapon": {
+        "name" : "placeholder name",
+        "type" : "weapon",
+        "description" : "placeholder description",
+        "value" : 999999,
+        "stats" : {
+            "damage" : 9999999,
+            "speed" : 9999999
+        },
+        "requirements" : {
+            "level" : 9999999
+        }
+    },
+    "health_potion" : {
+        "name" : "Health potion",
+        "type" : "consumable",
+        "description" : "Restores a small amount of health",
+        "value" : 10,
+        "effect" : {
+            "type" : "heal",
+            "amount" : "25"
+        }
+    },
+    "leather_armour" : {
+        "name" : "Leather armour",
+        "type" : "armour",
+        "description" : "light armour made from tough leather",
+        "value" : 35,
+        "stats" : {
+            "defense" : 10,
+            "speed" : 5
+        },
+        "requirements" : {
+            "level" : 2
+        }
+    }
+}

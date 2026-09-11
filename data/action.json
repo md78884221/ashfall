@@ -1,0 +1,22 @@
+{
+    "1":{
+        "action": "keep moving forward",
+        "function_name": "move_forward"
+    },
+    "2": {
+        "action": "talk to the npc",
+        "function_name": "talk_to_npc"
+    },
+    "3": {
+        "action": "attack and loot the npc",
+        "function_name" : "attack_npc"
+    },
+    "4": {
+        "action": "check your stats",
+        "function_name": "check_stats"
+    },
+    "5": {
+        "action": "check your inventory",
+        "function_name": "check_inventory"
+    }
+}
