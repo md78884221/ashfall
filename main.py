@@ -1,5 +1,6 @@
 import json
 import os
+from game import game_loop
 # ==============================================
 # 
 #
@@ -91,7 +92,7 @@ while True:
     elif choice == "2":
         result = load_game()
         if result is not None:
-            player_name, player_stats = result
-            break
+            name, player_stats = result
+            game_loop.gameloop(name, player_stats)
         else:
             print("please enter either 1 or 2")
