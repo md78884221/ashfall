@@ -23,7 +23,8 @@ def start_game():
                 "health": 150,
                 "strength": 20,
                 "magic": 1,
-                "speed" : 20
+                "speed" : 20,
+                "inventory" : {}
             }
             break
         elif class_choice == "2" :
@@ -32,7 +33,8 @@ def start_game():
                 "health": 100,
                 "strength": 5,
                 "magic": 25,
-                "speed" : 10
+                "speed" : 10,
+                "inventory" : {}
             }
             break
         elif class_choice == "3":
@@ -41,7 +43,8 @@ def start_game():
                 "health": 120,
                 "strength": 15,
                 "magic": 5,
-                "speed" : 30
+                "speed" : 30,
+                "inventory" : {}
             }
             break
         else:
@@ -87,12 +90,14 @@ player_stats = None
 while True:
     choice = input("do you want to (1) start a new game or (2) load a saved game:").strip()
     if choice == "1":
-        player_name, player_stats = start_game()
-        break
+        result = start_game()
+        if result is not None:
+            name, player_stats = result
+            game_loop.gameloop(name, player_stats)
     elif choice == "2":
         result = load_game()
         if result is not None:
             name, player_stats = result
             game_loop.gameloop(name, player_stats)
-        else:
-            print("please enter either 1 or 2")
+    else:
+        print("please enter either 1 or 2")

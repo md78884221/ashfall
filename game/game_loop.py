@@ -2,29 +2,37 @@ import time
 import os
 import json
 import random
-from game import combat 
+from game import combat, inventory
 actions = ["1", "2", "3", "4", "5"] #TODO: load these keys from json and create acion functions associated with it
 def move_forward():
     pass
 def talk_to_npc():
     pass
-def loot_npc(level=0):
-    if 0 <= level < 5:
-        print("looting npc....")
-        loot = combat.lootdrops("easy","leather_armour", "rusty_dagger")
-        for item in loot:
-            time.sleep(1)
-            print(f"+1 {item}")
-        time.sleep(1)
-        return loot
-    elif level < 0 :
-        print("NPC level cannot be negative")
-    else:
-        print("looting npc. higher than level 5 might be difficult")
-        combat.lootdrops()
+def loot_npc(player_stats,level=0):
+    try:
+        with open("data/items.json", "r") as f:
+            items = json.load(f)
+            if 0 <= level < 5:
+                print("looting npc....")
+                loot = combat.lootdrops("easy","leather_armour", "rusty_dagger")
+                for item in loot:
+                    inventory.add(player_stats, item)
+                    time.sleep(1)
+                    print(f"+1 {items[item]['name']}")
+                time.sleep(1)
+                return loot
+            elif level < 0 :
+                print("NPC level cannot be negative")
+            else:
+                print("looting npc. higher than level 5 might be difficult")
+                combat.lootdrops()
+    except Exception as e:
+        print(f"Error: {e}")
 def c_stats(player_stats):
     if isinstance(player_stats, dict):
         for key, value in player_stats.items():
+            if isinstance(value, dict):
+                continue
             print(f"""{key} : {value}
             """)
     else:
@@ -51,10 +59,11 @@ def gameloop(name, player_stats, map="outskirts"):
         """)
         action = input("What would you like to do?: ").strip()
         if action == "3":
-            results = loot_npc(2)
+            results = loot_npc(player_stats,2)
         elif action == "4":
             results = c_stats(player_stats)
         elif action == "6":
             print("quitting")
+            return
         else:
             print("Has to be a valid number between 1-6")
