@@ -93,11 +93,13 @@ while True:
         result = start_game()
         if result is not None:
             name, player_stats = result
-            game_loop.gameloop(name, player_stats)
+            if game_loop.gameloop(name, player_stats) == "quit" :
+                break
     elif choice == "2":
         result = load_game()
         if result is not None:
             name, player_stats = result
-            game_loop.gameloop(name, player_stats)
+            if game_loop.gameloop(name, player_stats) == "quit" :
+                break
     else:
         print("please enter either 1 or 2")

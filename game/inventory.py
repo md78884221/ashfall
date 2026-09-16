@@ -8,6 +8,10 @@ def save_game(name,player_stats):
     try:
         os.makedirs("save", exist_ok=True)
         with open("save/savegame.json", "w") as f:
-            json.dump({"name" : name, "stats" : player_stats}, f)
+            player_data = {
+                "name":name,
+                "stats":player_stats
+            }
+            json.dump(player_data, f)
     except Exception as e:
         print(f"error saving inventory: {e}")

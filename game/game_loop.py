@@ -57,7 +57,7 @@ def c_inventory(player_stats):
         item_name = items.get(item_id, {}).get("name", item_id)
         print(f"{index}. {quantity}x {item_name}")
     while True:
-        choice = input("enter an item number to inspect, or '0' to exit").strip()
+        choice = input("enter an item number to inspect, or '0' to exit: ").strip()
         if choice == "0":
             break
         if not choice.isdigit():
@@ -107,6 +107,6 @@ def gameloop(name, player_stats, map="outskirts"):
             results = c_inventory(player_stats)
         elif action == "6":
             print("quitting")
-            return
+            return "quit"
         else:
             print("Has to be a valid number between 1-6")
