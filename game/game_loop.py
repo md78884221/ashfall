@@ -2,7 +2,7 @@ import time
 import os
 import json
 import random
-from game import combat, inventory
+from game import combat, inventory, data
 actions = ["1", "2", "3", "4", "5"] #TODO: load these keys from json and create acion functions associated with it
 def move_forward():
     print("you move futher down the path...")
@@ -97,6 +97,7 @@ def gameloop(name, player_stats, map="outskirts"):
         4. check your stats
         5. check your inventory
         6. quit
+        7. check current location
         """)
         action = input("What would you like to do?: ").strip()
         if action == "3":
@@ -108,5 +109,12 @@ def gameloop(name, player_stats, map="outskirts"):
         elif action == "6":
             print("quitting")
             return "quit"
+        elif action == "7" : 
+            location_data = data.open_location("world1", "blackwatch", "armoury")
+            if isinstance(location_data, dict):    
+                for key, value in location_data.items():
+                    print(f"{key} : {value}")
+            else:
+                print("open_location() didnt return a dictionary")
         else:
             print("Has to be a valid number between 1-6")

@@ -1,0 +1,13 @@
+{
+    "id" : 1,
+    "name" : "Armoury",
+    "description": "cold stone room filled with weapons and armour",
+    "npcs" : [],
+    "enemies" : [],
+    "items" : [],
+    "actions" : [
+        "inspect",
+        "leave"
+    ]
+
+}
